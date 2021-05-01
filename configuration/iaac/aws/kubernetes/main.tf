@@ -79,10 +79,8 @@ resource "kubernetes_cluster_role_binding" "example" {
 }
 
 # Needed to set the default region
-terraform {
-  required_providers {
+required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 3.0"
     }
-  }
