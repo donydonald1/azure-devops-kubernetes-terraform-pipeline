@@ -82,5 +82,4 @@ resource "kubernetes_cluster_role_binding" "example" {
 provider "aws" {
   region  = "us-west-2"
   alias   = "bridge"
-  version = "~> 2.2.0"
 }
