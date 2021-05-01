@@ -8,7 +8,7 @@
 
 terraform {
   backend "s3" {
-    bucket = "mybucket" # Will be overridden from build
+    bucket = "mybucket"       # Will be overridden from build
     key    = "path/to/my/key" # Will be overridden from build
     region = "us-east-1"
   }
@@ -26,27 +26,29 @@ provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
- // version                = "~> 1.9"
+  // version                = "~> 1.9"
 }
 
 module "in28minutes-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "in28minutes-cluster"
   cluster_version = "1.17"
-  subnets         = ["subnet-eb750aca", "subnet-1d9a1e2c", "subnet-40d9a826", "subnet-ca3e4395",  "subnet-58010115", "subnet-0e8ca700"] #CHANGE # Donot choose subnet from us-east-1e
+  subnets         = ["subnet-eb750aca", "subnet-1d9a1e2c", "subnet-40d9a826", "subnet-ca3e4395", "subnet-58010115", "subnet-0e8ca700"] #CHANGE # Donot choose subnet from us-east-1e
   #subnets = data.aws_subnet_ids.subnets.ids
-  vpc_id          = aws_default_vpc.default.id
+  vpc_id = aws_default_vpc.default.id
   #vpc_id         = "vpc-1234556abcdef"
 
   node_groups = [
     {
-      instance_type = "t2.micro"
-      max_capacity  = 5
+      instance_type    = "t2.micro"
+      max_capacity     = 5
       desired_capacity = 3
-      min_capacity  = 3
+      min_capacity     = 3
     }
   ]
 }
+
+data "aws_region" "current" {}
 
 data "aws_eks_cluster" "cluster" {
   name = module.in28minutes-cluster.cluster_id
@@ -78,10 +80,7 @@ resource "kubernetes_cluster_role_binding" "example" {
 
 # Needed to set the default region
 provider "aws" {
-  region = "us-west-2"
-  alias = "bridge"
+  region  = "us-west-2"
+  alias   = "bridge"
   version = "~> 2.2.0"
-}
-
- data "aws_region" "current" {}
 }
