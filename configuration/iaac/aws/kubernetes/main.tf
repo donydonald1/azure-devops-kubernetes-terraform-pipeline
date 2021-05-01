@@ -77,8 +77,11 @@ resource "kubernetes_cluster_role_binding" "example" {
 }
 
 # Needed to set the default region
-provider "aws"{
-   access_key = var.AWS_ACCESS_KEY
-   secret_key = var.AWS_SECRET_KEY
-   region = var.AWS_REGION
+provider "aws" {
+  region = "us-west-2"
+  alias = "bridge"
+  version = "~> 2.2.0"
+}
+
+ data "aws_region" "current" {}
 }
