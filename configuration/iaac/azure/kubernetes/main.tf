@@ -40,4 +40,17 @@ terraform {
     # key="<<env_name.k8s.tfstate>>" #OVERRIDE in TERRAFORM init
     # container_name="<<storage_account_container_name>>" #OVERRIDE in TERRAFORM init
   }
+
+terraform {
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "=2.46.0"
+    }
+  }
+}
+
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+  features {}
 }
