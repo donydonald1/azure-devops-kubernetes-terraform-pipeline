@@ -79,8 +79,6 @@ resource "kubernetes_cluster_role_binding" "example" {
 }
 
 # Needed to set the default region
-required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.0"
-    }
+provider "aws" {
+  region                   = "us-west-2"
+}
