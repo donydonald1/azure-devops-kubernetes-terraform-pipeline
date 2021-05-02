@@ -24,4 +24,5 @@ steps:
     provider: 'aws'
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes/'
-    environmentServiceNameAWS: 'aws for terraform'
+    environmentServiceNameAWS: 'aws for terraform' 
+    
